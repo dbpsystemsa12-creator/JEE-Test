@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBP Prep | The D and F Block Elements | Class 12 E</title>
+<style>
+  body {
+    background: linear-gradient(181deg, #000000, #1d1b1b);
+    background-attachment: fixed;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    z-index: 1000;
+  }
+  .logo { font-size: 1.8em; font-weight: 900; color: #ffffff; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: baseline; gap: 10px;}
+  .logo span.prep { color: #4facfe; font-weight: 300; }
+  .logo span.user { font-size: 0.4em; color: #888; font-weight: normal; letter-spacing: 1px;}
+  .nav-controls { display: flex; gap: 15px; }
+  select {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  select option { background: #1d1b1b; color: #fff; }
+  .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+  h1 { text-align: center; font-size: 2.5em; margin-bottom: 40px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+  .q {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
+    scroll-margin-top: 100px;
+  }
+  .q:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.15); }
+  .num { font-weight: bold; color: #4facfe; font-size: 1.3em; display: block; margin-bottom: 5px; }
+  .shift { font-size: 0.85em; color: #78909c; font-style: italic; margin-bottom: 15px; display: block; }
+  
+  /* Statement Lists (Fix for Q5 & Q15) */
+  .statements { list-style-type: none; padding-left: 0; margin-top: 15px; }
+  .statements li { margin-bottom: 6px; color: #cfd8dc; }
+
+  /* Interactive Options */
+  .opts { list-style-type: none; padding-left: 0; margin-top: 15px; }
+  .opts li { cursor: pointer; margin-bottom: 8px; background-color: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 6px; border-left: 3px solid transparent; transition: all 0.2s;}
+  .opts li:hover:not(.locked) { border-left-color: #4facfe; background-color: rgba(255,255,255,0.08); }
+  .opts li.selected { background-color: rgba(79, 172, 254, 0.2); border-left-color: #4facfe; font-weight: bold; }
+  
+  /* Text Inputs */
+  .text-ans { width: 100%; padding: 12px 15px; margin-top: 15px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 6px; color: #fff; font-size: 1em; box-sizing: border-box; outline: none; transition: border-color 0.2s, box-shadow 0.2s; font-family: inherit; }
+  .text-ans:focus { border-color: #4facfe; box-shadow: 0 0 8px rgba(79, 172, 254, 0.3); }
+
+  /* Result Highlighting */
+  .opts li.correct { background-color: rgba(76, 175, 80, 0.2); border-left-color: #4caf50; color: #fff;}
+  .opts li.wrong { background-color: rgba(244, 67, 54, 0.2); border-left-color: #f44336; color: #fff;}
+  .text-ans.correct { border-color: #4caf50; background: rgba(76, 175, 80, 0.1); color: #81c784; font-weight: bold;}
+  .text-ans.wrong { border-color: #f44336; background: rgba(244, 67, 54, 0.1); color: #e57373; text-decoration: line-through;}
+
+  /* Locked State Styles */
+  .q.locked .opts li { cursor: not-allowed; }
+  .q.locked .text-ans { cursor: not-allowed; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden;}
+  td, th { border: 1px solid rgba(255,255,255,0.1); padding: 10px; text-align: left; }
+  th { background: rgba(0,0,0,0.6); color: #4facfe; }
+  
+  /* Buttons and Layout */
+  .btn-container { text-align: center; margin: 50px 0; }
+  #submitBtn { background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%); color: #000; font-size: 1.2em; font-weight: bold; padding: 15px 40px; border: none; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3); transition: transform 0.2s, box-shadow 0.2s; }
+  #submitBtn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5); }
+  
+  /* Answer Section & Score Display */
+  #answersSection { display: none; background: rgba(0, 0, 0, 0.8); border: 2px solid #4facfe; border-radius: 12px; padding: 30px; margin-bottom: 50px; box-shadow: 0 0 30px rgba(79, 172, 254, 0.15); scroll-margin-top: 100px; }
+  #scoreBoard { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .score-total { font-size: 2.5em; font-weight: 900; color: #00f2fe; text-shadow: 0 0 10px rgba(0,242,254,0.3); margin-bottom: 10px;}
+  .score-stats { font-size: 1.1em; color: #b0bec5; display: flex; justify-content: center; gap: 20px;}
+  .stat-pill { background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 20px; }
+  
+  .answer-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
+  .answer-item strong { color: #4facfe; }
+  .ans-text { color: #81c784; font-weight: bold; margin-top: 5px; display: block;}
+  .marks-badge { display: inline-block; padding: 3px 8px; border-radius: 4px; margin-left: 10px; font-weight: bold; font-size: 0.85em; }
+  .badge-correct { background: rgba(76, 175, 80, 0.2); color: #4caf50; border: 1px solid rgba(76, 175, 80, 0.4); }
+  .badge-wrong { background: rgba(244, 67, 54, 0.2); color: #f44336; border: 1px solid rgba(244, 67, 54, 0.4); }
+  .badge-unattempted { background: rgba(158, 158, 158, 0.2); color: #9e9e9e; border: 1px solid rgba(158, 158, 158, 0.4); }
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">DBP <span class="prep">Prep</span> <span class="user">For Yash Daspattanayak | Class 12 E</span></div>
+    <div class="nav-controls">
+      <select id="q-nav" onchange="scrollToElement(this.value)">
+        <option value="">Jump to Question...</option>
+      </select>
+      <select id="ans-nav" style="display: none;" onchange="scrollToElement(this.value)">
+        <option value="">Jump to Answer...</option>
+      </select>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>The D and F Block Elements</h1>
+
+    <div id="questions-wrapper">
+      
+      <div class="q" id="q1">
+        <span class="num">Question 1</span>
+        <span class="shift">JEE Main 2025 (Online) 22nd January Evening Shift</span>
+        <p>Niobium (Nb) and ruthenium (Ru) have "x" and "y" number of electrons in their respective 4d orbitals. The value of x + y is ________.</p>
+      </div>
+
+      <div class="q" id="q2">
+        <span class="num">Question 2</span>
+        <span class="shift">JEE Main 2025 (Online) 29th January Morning Shift</span>
+        <p>The molar mass of the water insoluble product formed from the fusion of chromite ore (FeCr<sub>2</sub>O<sub>4</sub>) with Na<sub>2</sub>CO<sub>3</sub> in presence of O<sub>2</sub> is ________ g mol.</p>
+      </div>
+
+      <div class="q" id="q3">
+        <span class="num">Question 3</span>
+        <span class="shift">JEE Main 2025 (Online) 3rd April Morning Shift</span>
+        <p>Consider the following reactions:<br>
+        A + NaCl + H<sub>2</sub>SO<sub>4</sub> &rarr; CrO<sub>2</sub>Cl<sub>2</sub> + Side Products<br>
+        CrO<sub>2</sub>Cl<sub>2(Vapour)</sub> + NaOH &rarr; B + NaCl + H<sub>2</sub>O<br>
+        B + H<sup>+</sup> &rarr; C + H<sub>2</sub>O<br>
+        The number of terminal 'O' present in the compound C is ________.</p>
+      </div>
+
+      <div class="q" id="q4">
+        <span class="num">Question 4</span>
+        <span class="shift">JEE Main 2025 (Online) 3rd April Evening Shift</span>
+        <p>Among, Sc, Mn, Co and Cu, identify the element with highest enthalpy of atomisation. The spin only magnetic moment value of that element in its +2 oxidation state is ________ BM (in nearest integer).</p>
+      </div>
+
+      <div class="q" id="q5">
+        <span class="num">Question 5</span>
+        <span class="shift">JEE Main 2025 (Online) 22nd January Morning Shift</span>
+        <p>Lanthanoid ions with 4f<sup>7</sup> configuration are :</p>
+        <ul class="statements">
+          <li>(A) Eu<sup>2+</sup></li>
+          <li>(B) Gd<sup>3+</sup></li>
+          <li>(C) Eu<sup>3+</sup></li>
+          <li>(D) Tb<sup>3+</sup></li>
+          <li>(E) Sm<sup>2+</sup></li>
+        </ul>
+        <p>Choose the correct answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. (B) and (E) only</li>
+          <li>B. (B) and (C) only</li>
+          <li>C. (A) and (D) only</li>
+          <li>D. (A) and (B) only</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q6">
+        <span class="num">Question 6</span>
+        <span class="shift">JEE Main 2025 (Online) 23rd January Morning Shift</span>
+        <p>The correct set of ions (aqueous solution) with same colour from the following is:</p>
+        <ul class="opts">
+          <li>A. V<sup>2+</sup>, Cr<sup>3+</sup>, Mn<sup>3+</sup></li>
+          <li>B. Ti<sup>4+</sup>, V<sup>4+</sup>, Mn<sup>2+</sup></li>
+          <li>C. Sc<sup>3+</sup>, Ti<sup>3+</sup>, Cr<sup>2+</sup></li>
+          <li>D. Zn<sup>2+</sup>, V<sup>3+</sup>, Fe<sup>3+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q7">
+        <span class="num">Question 7</span>
+        <span class="shift">JEE Main 2025 (Online) 23rd January Evening Shift</span>
+        <p>Consider the following reactions<br>
+        K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> &rarr; (KOH / -H<sub>2</sub>O) [A] &rarr; (H<sub>2</sub>SO<sub>4</sub> / -H<sub>2</sub>O) [B] + K<sub>2</sub>SO<sub>4</sub><br>
+        The products [A] and [B], respectively are :</p>
+        <ul class="opts">
+          <li>A. K<sub>2</sub>Cr(OH)<sub>6</sub> and Cr<sub>2</sub>O<sub>3</sub></li>
+          <li>B. K<sub>2</sub>CrO<sub>4</sub> and Cr<sub>2</sub>O<sub>3</sub></li>
+          <li>C. K<sub>2</sub>CrO<sub>4</sub> and K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub></li>
+          <li>D. K<sub>2</sub>CrO<sub>4</sub> and CrO</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q8">
+        <span class="num">Question 8</span>
+        <span class="shift">JEE Main 2025 (Online) 23rd January Evening Shift</span>
+        <p>Match List - I with List - II</p>
+        <table>
+          <tr><th>List - 1</th><th>List - II</th></tr>
+          <tr><td>(A) Bronze</td><td>(I) Cu, Ni</td></tr>
+          <tr><td>(B) Brass</td><td>(II) Fe, Cr, Ni, C</td></tr>
+          <tr><td>(C) UK silver coin</td><td>(III) Cu, Zn</td></tr>
+          <tr><td>(D) Stainless steel</td><td>(IV) Cu, Sn</td></tr>
+        </table>
+        <p>Choose the correct answer from the options given below :</p>
+        <ul class="opts">
+          <li>A. (A)-(IV), (B)-(II), (C)-(III), (D)-(I)</li>
+          <li>B. (A)-(IV), (B)-(III), (C)-(I), (D)-(II)</li>
+          <li>C. (A)-(III), (B)-(I), (C)-(IV), (D)-(II)</li>
+          <li>D. (A)-(III), (B)-(IV), (C)-(II), (D)-(I)</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q9">
+        <span class="num">Question 9</span>
+        <span class="shift">JEE Main 2025 (Online) 24th January Morning Shift</span>
+        <p>Which of the following ions is the strongest oxidizing agent? (Atomic Number of Ce=58, Eu=63, Tb=65 , Lu=71)</p>
+        <ul class="opts">
+          <li>A. Lu<sup>3+</sup></li>
+          <li>B. Eu<sup>2+</sup></li>
+          <li>C. Tb<sup>4+</sup></li>
+          <li>D. Ce<sup>3+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q10">
+        <span class="num">Question 10</span>
+        <span class="shift">JEE Main 2025 (Online) 24th January Morning Shift</span>
+        <p>Preparation of potassium permanganate from MnO<sub>2</sub> involves two step process in which the 1st step is a reaction with KOH and KNO<sub>3</sub> to produce ________.</p>
+        <ul class="opts">
+          <li>A. K<sub>3</sub>MnO<sub>4</sub></li>
+          <li>B. K<sub>4</sub>[Mn(OH)<sub>6</sub>]</li>
+          <li>C. K<sub>2</sub>MnO<sub>4</sub></li>
+          <li>D. KMnO<sub>4</sub></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q11">
+        <span class="num">Question 11</span>
+        <span class="shift">JEE Main 2025 (Online) 24th January Evening Shift</span>
+        <p>Match List - I with List - II.</p>
+        <table>
+          <tr><th>List - I (Transition metal ion)</th><th>List - II (Spin only magnetic moment (B.M.))</th></tr>
+          <tr><td>(A) Ti<sup>3+</sup></td><td>(I) 3.87</td></tr>
+          <tr><td>(B) V<sup>2+</sup></td><td>(II) 0.00</td></tr>
+          <tr><td>(C) Ni<sup>2+</sup></td><td>(III) 1.73</td></tr>
+          <tr><td>(D) Sc<sup>3+</sup></td><td>(IV) 2.84</td></tr>
+        </table>
+        <p>Choose the correct answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. (A)-(III), (B)-(I), (C)-(IV), (D)-(II)</li>
+          <li>B. (A)-(II), (B)-(IV), (C)-(I), (D)-(III)</li>
+          <li>C. (A)-(III), (B)-(I), (C)-(II), (D)-(IV)</li>
+          <li>D. (A)-(IV), (B)-(II), (D)-(I)</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q12">
+        <span class="num">Question 12</span>
+        <span class="shift">JEE Main 2025 (Online) 28th January Morning Shift</span>
+        <p>The metal ion whose electronic configuration is not affected by the nature of the ligand and which gives a violet colour in non-luminous flame under hot condition in borax bead test is ________.</p>
+        <ul class="opts">
+          <li>A. Cr<sup>3+</sup></li>
+          <li>B. Ti<sup>3+</sup></li>
+          <li>C. Ni<sup>2+</sup></li>
+          <li>D. Mn<sup>2+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q13">
+        <span class="num">Question 13</span>
+        <span class="shift">JEE Main 2025 (Online) 28th January Evening Shift</span>
+        <p>The amphoteric oxide among V<sub>2</sub>O<sub>3</sub>, V<sub>2</sub>O<sub>4</sub> and V<sub>2</sub>O<sub>5</sub>, upon reaction with alkali leads to formation of an oxide anion. The oxidation state of V in the oxide anion is:</p>
+        <ul class="opts">
+          <li>A. +4</li>
+          <li>B. +5</li>
+          <li>C. +3</li>
+          <li>D. +7</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q14">
+        <span class="num">Question 14</span>
+        <span class="shift">JEE Main 2025 (Online) 29th January Morning Shift</span>
+        <p>The correct option with order of melting points of the pairs (Mn, Fe), (Tc, Ru) and (Re, Os) is :</p>
+        <ul class="opts">
+          <li>A. Fe &lt; Mn, Ru &lt; Tc and Re &lt; Os</li>
+          <li>B. Fe &lt; Mn, Ru &lt; Tc and Os &lt; Re</li>
+          <li>C. Mn &lt; Fe, Tc &lt; Ru and Re &lt; Os</li>
+          <li>D. Mn &lt; Fe, Tc &lt; Ru and Os &lt; Re</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q15">
+        <span class="num">Question 15</span>
+        <span class="shift">JEE Main 2025 (Online) 3rd April Morning Shift</span>
+        <p>The metal ions that have the calculated spin-only magnetic moment value of 4.9 B.M. are:</p>
+        <ul class="statements">
+          <li>A. Cr<sup>2+</sup></li>
+          <li>B. Fe<sup>2+</sup></li>
+          <li>C. Fe<sup>3+</sup></li>
+          <li>D. Co<sup>2+</sup></li>
+          <li>E. Mn<sup>3+</sup></li>
+        </ul>
+        <p>Choose the correct answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. A, D and E Only</li>
+          <li>B. A, B and E Only</li>
+          <li>C. A, C and E Only</li>
+          <li>D. B and E Only</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q16">
+        <span class="num">Question 16</span>
+        <span class="shift">JEE Main 2025 (Online) 3rd April Evening Shift</span>
+        <p>Given below are two statements:<br>
+        Statement I: CrO<sub>3</sub> is a stronger oxidizing agent than MoO<sub>3</sub><br>
+        Statement II: Cr(VI) is more stable than Mo(VI)<br>
+        In the light of the above statements, choose the correct answer from the options given below</p>
+        <ul class="opts">
+          <li>A. Statement I is true but Statement II is false</li>
+          <li>B. Both Statement I and Statement II are true</li>
+          <li>C. Both Statement I and Statement II are false</li>
+          <li>D. Statement I is false but Statement II is true</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q17">
+        <span class="num">Question 17</span>
+        <span class="shift">JEE Main 2025 (Online) 4th April Morning Shift</span>
+        <p>Pair of transition metal ions having the same number of unpaired electrons is</p>
+        <ul class="opts">
+          <li>A. Ti<sup>3+</sup>, Mn<sup>2+</sup></li>
+          <li>B. Ti<sup>2+</sup>, Co<sup>2+</sup></li>
+          <li>C. Fe<sup>3+</sup>, Cr<sup>2+</sup></li>
+          <li>D. V<sup>2+</sup>, Co<sup>2+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q18">
+        <span class="num">Question 18</span>
+        <span class="shift">JEE Main 2025 (Online) 7th April Morning Shift</span>
+        <p>The first transition series metal 'M' has the highest enthalpy of atomisation in its series. One of its aquated ion (M<sup>n+</sup>) exists in green colour. The nature of the oxide formed by the above M<sup>n+</sup> ion is:</p>
+        <ul class="opts">
+          <li>A. basic</li>
+          <li>B. neutral</li>
+          <li>C. amphoteric</li>
+          <li>D. acidic</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q19">
+        <span class="num">Question 19</span>
+        <span class="shift">JEE Main 2025 (Online) 8th April Evening Shift</span>
+        <p>The correct decreasing order of spin only magnetic moment values (BM) of Cu<sup>+</sup>, Cu<sup>2+</sup>, Cr<sup>2+</sup> and Cr<sup>3+</sup> ions is :</p>
+        <ul class="opts">
+          <li>A. Cr<sup>3+</sup> &gt; Cr<sup>2+</sup> &gt; Cu<sup>+</sup> &gt; Cu<sup>2+</sup></li>
+          <li>B. Cu<sup>+</sup> &gt; Cu<sup>2+</sup> &gt; Cr<sup>3+</sup> &gt; Cr<sup>2+</sup></li>
+          <li>C. Cr<sup>2+</sup> &gt; Cr<sup>3+</sup> &gt; Cu<sup>2+</sup> &gt; Cu<sup>+</sup></li>
+          <li>D. Cu<sup>2+</sup> &gt; Cu<sup>+</sup> &gt; Cr<sup>2+</sup> &gt; Cr<sup>3+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q20">
+        <span class="num">Question 20</span>
+        <span class="shift">[27-Jan-2024 Shift 1]</span>
+        <p>Given below are two statements :<br>
+        Statement (I): The 4f and 5f - series of elements are placed separately in the Periodic table to preserve the principle of classification.<br>
+        Statement (II) : S-block elements can be found in pure form in nature.<br>
+        In the light of the above statements, choose the most appropriate answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. Statement I is false but Statement II is true</li>
+          <li>B. Both Statement I and Statement II are true</li>
+          <li>C. Statement I is true but Statement II is false</li>
+          <li>D. Both Statement I and Statement II are false</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q21">
+        <span class="num">Question 21</span>
+        <span class="shift">[27-Jan-2024 Shift 1]</span>
+        <p>NaCl reacts with conc. H<sub>2</sub>SO<sub>4</sub> and K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> to give reddish fumes (B), which react with NaOH to give yellow solution (C). (B) and (C) respectively are ________.</p>
+        <ul class="opts">
+          <li>A. CrO<sub>2</sub>Cl<sub>2</sub>, Na<sub>2</sub>CrO<sub>4</sub></li>
+          <li>B. Na<sub>2</sub>CrO<sub>4</sub>, CrO<sub>2</sub>Cl<sub>2</sub></li>
+          <li>C. CrO<sub>2</sub>Cl<sub>2</sub>, KHSO<sub>4</sub></li>
+          <li>D. CrO<sub>2</sub>Cl<sub>2</sub>, Na<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q22">
+        <span class="num">Question 22</span>
+        <span class="shift">[27-Jan-2024 Shift 2]</span>
+        <p>Given below are two statements:<br>
+        Statement (I): In the Lanthanoids, the formation of Ce<sup>+4</sup> is favoured by its noble gas configuration.<br>
+        Statement (II): Ce<sup>+4</sup> is a strong oxidant reverting to the common +3 state.<br>
+        In the light of the above statements, choose the most appropriate answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. Statement I is false but Statement II is true</li>
+          <li>B. Both Statement I and Statement II are true</li>
+          <li>C. Statement I is true but Statement II is false</li>
+          <li>D. Both Statement I and Statement II are false</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q23">
+        <span class="num">Question 23</span>
+        <span class="shift">[27-Jan-2024 Shift 2]</span>
+        <p>Choose the correct option having all the elements with electronic configuration d<sup>10</sup> from the following:</p>
+        <ul class="opts">
+          <li>A. <sup>27</sup>Co, <sup>28</sup>Ni, <sup>26</sup>Fe, <sup>24</sup>Cr</li>
+          <li>B. <sup>29</sup>Cu, <sup>30</sup>Zn, <sup>48</sup>Cd, <sup>47</sup>Ag</li>
+          <li>C. <sup>46</sup>Pd, <sup>28</sup>Ni, <sup>26</sup>Fe, <sup>24</sup>Cr</li>
+          <li>D. <sup>28</sup>Ni, <sup>24</sup>Cr, <sup>26</sup>Fe, <sup>29</sup>Cu</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q24">
+        <span class="num">Question 24</span>
+        <span class="shift">[29-Jan-2024 Shift 1]</span>
+        <p>In alkaline medium, MnO<sub>4</sub><sup>-</sup> oxidises I<sup>-</sup> to ________.</p>
+        <ul class="opts">
+          <li>A. IO<sub>4</sub><sup>-</sup></li>
+          <li>B. IO<sup>-</sup></li>
+          <li>C. I<sub>2</sub></li>
+          <li>D. IO<sub>3</sub><sup>-</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q25">
+        <span class="num">Question 25</span>
+        <span class="shift">[29-Jan-2024 Shift 1]</span>
+        <p>In chromyl chloride test for confirmation of Cl<sup>-</sup> ion, a yellow solution is obtained. Acidification of the solution and addition of amyl alcohol and 10% H<sub>2</sub>O<sub>2</sub> turns organic layer blue indicating formation of chromium pentoxide. The oxidation state of chromium in that is ________.</p>
+        <ul class="opts">
+          <li>A. +6</li>
+          <li>B. +5</li>
+          <li>C. +10</li>
+          <li>D. +3</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q26">
+        <span class="num">Question 26</span>
+        <span class="shift">[29-Jan-2024 Shift 2]</span>
+        <p>Which of the following statements are correct about Zn, Cd and Hg ?<br>
+        A. They exhibit high enthalpy of atomization as the d-subshell is full.<br>
+        B. Zn and Cd do not show variable oxidation state while Hg shows +I and + II.<br>
+        C. Compounds of Zn, Cd and Hg are paramagnetic in nature.<br>
+        D. Zn, Cd and Hg are called soft metals.<br>
+        Choose the most appropriate from the options given below:</p>
+        <ul class="opts">
+          <li>A. B, D only</li>
+          <li>B. B, C only</li>
+          <li>C. A, D only</li>
+          <li>D. C, D only</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q27">
+        <span class="num">Question 27</span>
+        <span class="shift">[29-Jan-2024 Shift 2]</span>
+        <p>Which of the following acts as a strong reducing agent? (Atomic number: Ce=58, Eu=63, Gd=64, Lu=71)</p>
+        <ul class="opts">
+          <li>A. Lu<sup>3+</sup></li>
+          <li>B. Gd<sup>3+</sup></li>
+          <li>C. Eu<sup>2+</sup></li>
+          <li>D. Ce<sup>4+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q28">
+        <span class="num">Question 28</span>
+        <span class="shift">[30-Jan-2024 Shift 1]</span>
+        <p>Match List-I with List-II</p>
+        <table>
+          <tr><th>List-I (Species)</th><th>List-II (Electronic distribution)</th></tr>
+          <tr><td>(A) Cr<sup>2+</sup></td><td>(I) 3d<sup>8</sup></td></tr>
+          <tr><td>(B) Mn<sup>+</sup></td><td>(II) 3d<sup>3</sup>4s<sup>1</sup></td></tr>
+          <tr><td>(C) Ni<sup>2+</sup></td><td>(III) 3d<sup>4</sup></td></tr>
+          <tr><td>(D) V<sup>+</sup></td><td>(IV) 3d<sup>5</sup>4s<sup>1</sup></td></tr>
+        </table>
+        <p>Choose the correct answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. (A)-I, (B)-II, (C)-III, (D)-IV</li>
+          <li>B. (A)-III, (B)-IV, (C)-I, (D)-II</li>
+          <li>C. (A)-IV, (B)-III, (C)-I, (D)-II</li>
+          <li>D. (A)-II, (B)-I, (C)-IV, (D)-III</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q29">
+        <span class="num">Question 29</span>
+        <span class="shift">[30-Jan-2024 Shift 1]</span>
+        <p>Diamagnetic Lanthanoid ions are:</p>
+        <ul class="opts">
+          <li>A. Nd<sup>3+</sup> and Eu<sup>3+</sup></li>
+          <li>B. La<sup>3+</sup> and Ce<sup>4+</sup></li>
+          <li>C. Nd<sup>3+</sup> and Ce<sup>4+</sup></li>
+          <li>D. Lu<sup>3+</sup> and Eu<sup>3+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q30">
+        <span class="num">Question 30</span>
+        <span class="shift">[30-Jan-2024 Shift 2]</span>
+        <p>The orange colour of K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> and purple colour of KMnO<sub>4</sub> is due to ________.</p>
+        <ul class="opts">
+          <li>A. Charge transfer transition in both.</li>
+          <li>B. d&rarr;d transition in KMnO<sub>4</sub> and charge transfer transitions in K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>.</li>
+          <li>C. d&rarr;d transition in K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> and charge transfer transitions in KMnO<sub>4</sub>.</li>
+          <li>D. d&rarr;d transition in both.</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q31">
+        <span class="num">Question 31</span>
+        <span class="shift">[30-Jan-2024 Shift 2]</span>
+        <p>Alkaline oxidative fusion of MnO<sub>2</sub> gives "A" which on electrolytic oxidation in alkaline solution produces B. A and B respectively are:</p>
+        <ul class="opts">
+          <li>A. Mn<sub>2</sub>O<sub>7</sub> and MnO<sub>4</sub><sup>-</sup></li>
+          <li>B. MnO<sub>4</sub><sup>2-</sup> and MnO<sub>4</sub><sup>-</sup></li>
+          <li>C. Mn<sub>2</sub>O<sub>3</sub> and MnO<sub>4</sub><sup>2-</sup></li>
+          <li>D. MnO<sub>4</sub><sup>2-</sup> and Mn<sub>2</sub>O<sub>7</sub></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q32">
+        <span class="num">Question 32</span>
+        <span class="shift">[30-Jan-2024 Shift 2]</span>
+        <p>A and B formed in the following reactions are:<br>
+        CrO<sub>2</sub>Cl<sub>2</sub> + 4 NaOH &rarr; A + 2NaCl + 2H<sub>2</sub>O<br>
+        A + 2 HCl + 2H<sub>2</sub>O<sub>2</sub> &rarr; B + 3H<sub>2</sub>O</p>
+        <ul class="opts">
+          <li>A. A = Na<sub>2</sub>CrO<sub>4</sub>, B = CrO<sub>5</sub></li>
+          <li>B. A = Na<sub>2</sub>Cr<sub>2</sub>O<sub>4</sub>, B = CrO<sub>4</sub></li>
+          <li>C. A = Na<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>, B = CrO<sub>3</sub></li>
+          <li>D. A = Na<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>, B = CrO<sub>5</sub></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q33">
+        <span class="num">Question 33</span>
+        <span class="shift">[31-Jan-2024 Shift 1]</span>
+        <p>Identify correct statements from below:<br>
+        A. The chromate ion is square planar.<br>
+        B. Dichromates are generally prepared from chromates.<br>
+        C. The green manganate ion is diamagnetic.<br>
+        D. Dark green coloured K<sub>2</sub>MnO<sub>4</sub> disproportionate in a neutral or acidic medium to give permanganate.<br>
+        E. With increasing oxidation number of transition metal, ionic character of the oxides decreases.<br>
+        Choose the correct answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. B, C, D only</li>
+          <li>B. A, D, E only</li>
+          <li>C. A, B, C only</li>
+          <li>D. B, D, E only</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q34">
+        <span class="num">Question 34</span>
+        <span class="shift">[31-Jan-2024 Shift 1]</span>
+        <p>The 'Spin only' Magnetic moment for [Ni(NH<sub>3</sub>)<sub>6</sub>]<sup>2+</sup> is ________ &times;10<sup>-1</sup> BM. (given = Atomic number of Ni: 28)</p>
+      </div>
+
+      <div class="q" id="q35">
+        <span class="num">Question 35</span>
+        <span class="shift">[31-Jan-2024 Shift 2]</span>
+        <p>Choose the correct statements from the following:<br>
+        A. Mn<sub>2</sub>O<sub>7</sub> is an oil at room temperature<br>
+        B. V<sub>2</sub>O<sub>4</sub> reacts with acid to give VO<sub>2</sub><sup>2+</sup><br>
+        C. CrO is a basic oxide<br>
+        D. V<sub>2</sub>O<sub>5</sub> does not react with acid<br>
+        Choose the correct answer from the options given below :</p>
+        <ul class="opts">
+          <li>A. A, B and D only</li>
+          <li>B. A and C only</li>
+          <li>C. A, B and C only</li>
+          <li>D. B and C only</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q36">
+        <span class="num">Question 36</span>
+        <span class="shift">[31-Jan-2024 Shift 2]</span>
+        <p>Number of moles of H<sup>+</sup> ions required by 1 mole of MnO<sub>4</sub><sup>-</sup> to oxidise oxalate ion to CO<sub>2</sub> is ________.</p>
+      </div>
+
+      <div class="q" id="q37">
+        <span class="num">Question 37</span>
+        <span class="shift">[31-Jan-2024 Shift 2]</span>
+        <p>In the reaction of potassium dichromate, potassium chloride and sulfuric acid (conc.), the oxidation state of the chromium in the product is (+) ________.</p>
+      </div>
+
+      <div class="q" id="q38">
+        <span class="num">Question 38</span>
+        <span class="shift">[1-Feb-2024 Shift 2]</span>
+        <p>Which of the following compounds show colour due to d-d transition?</p>
+        <ul class="opts">
+          <li>A. CuSO<sub>4</sub>.5H<sub>2</sub>O</li>
+          <li>B. K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub></li>
+          <li>C. K<sub>2</sub>CrO<sub>4</sub></li>
+          <li>D. KMnO<sub>4</sub></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q39">
+        <span class="num">Question 39</span>
+        <span class="shift">[1-Feb-2024 Shift 2]</span>
+        <p>The transition metal having highest 3rd ionisation enthalpy is :</p>
+        <ul class="opts">
+          <li>A. Cr</li>
+          <li>B. Mn</li>
+          <li>C. V</li>
+          <li>D. Fe</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q40">
+        <span class="num">Question 40</span>
+        <span class="shift">[1-Feb-2024 Shift 2]</span>
+        <p>Given below are two statements: one is labelled as Assertion (A) and the other is labelled as Reason (R).<br>
+        Assertion (A): In aqueous solutions Cr<sup>2+</sup> is reducing while Mn<sup>3+</sup> is oxidising in nature.<br>
+        Reason (R): Extra stability to half filled electronic configuration is observed than incompletely filled electronic configuration.<br>
+        In the light of the above statement, choose the most appropriate answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. Both (A) and (R) are true and (R) is the correct explanation of (A)</li>
+          <li>B. Both (A) and (R) are true but (R) is not the correct explanation of (A)</li>
+          <li>C. (A) is false but (R) is true</li>
+          <li>D. (A) is true but (R) is false</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q41">
+        <span class="num">Question 41</span>
+        <span class="shift">[24-Jan-2023 Shift 1]</span>
+        <p>The magnetic moment of a transition metal compound has been calculated to be 3.87 B.M. The metal ion is ________.</p>
+        <ul class="opts">
+          <li>A. Cr<sup>2+</sup></li>
+          <li>B. Mn<sup>2+</sup></li>
+          <li>C. V<sup>2+</sup></li>
+          <li>D. Ti<sup>2+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q42">
+        <span class="num">Question 42</span>
+        <span class="shift">[24-Jan-2023 Shift 1]</span>
+        <p>An ammoniacal metal salt solution gives a brilliant red precipitate on addition of dimethylglyoxime. The metal ion is :</p>
+        <ul class="opts">
+          <li>A. Cu<sup>2+</sup></li>
+          <li>B. Co<sup>2+</sup></li>
+          <li>C. Fe<sup>2+</sup></li>
+          <li>D. Ni<sup>2+</sup></li>
+        </ul>
+      </div>
+
+      <div class="q" id="q43">
+        <span class="num">Question 43</span>
+        <span class="shift">[24-Jan-2023 Shift 2]</span>
+        <p>Which one amongst the following are good oxidizing agents?<br>
+        A. Sm<sup>2+</sup><br>
+        B. Ce<sup>2+</sup><br>
+        C. Ce<sup>4+</sup><br>
+        D. Tb<sup>4+</sup><br>
+        Choose the most appropriate answer from the options given below:</p>
+        <ul class="opts">
+          <li>A. C only</li>
+          <li>B. D only</li>
+          <li>C. A and B only</li>
+          <li>D. C and D only</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q44">
+        <span class="num">Question 44</span>
+        <span class="shift">[24-Jan-2023 Shift 2]</span>
+        <p>K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> paper acidified with dilute H<sub>2</sub>SO<sub>4</sub> turns green when exposed to ________.</p>
+        <ul class="opts">
+          <li>A. Carbon dioxide</li>
+          <li>B. Sulphur trioxide</li>
+          <li>C. Hydrogen sulphide</li>
+          <li>D. Sulphur dioxide</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q45">
+        <span class="num">Question 45</span>
+        <span class="shift">[25-Jan-2023 Shift 2]</span>
+        <p>Potassium dichromate acts as a strong oxidizing agent in acidic solution. During this process, the oxidation state changes from ________.</p>
+        <ul class="opts">
+          <li>A. +3 to +1</li>
+          <li>B. +6 to +3</li>
+          <li>C. +2 to +1</li>
+          <li>D. +6 to +2</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q46">
+        <span class="num">Question 46</span>
+        <span class="shift">[29-Jan-2023 Shift 1]</span>
+        <p>During the borax bead test with CuSO<sub>4</sub>, a blue green colour of the bead was observed in oxidising flame due to the formation of ________.</p>
+        <ul class="opts">
+          <li>A. Cu<sub>3</sub>B<sub>2</sub></li>
+          <li>B. Cu</li>
+          <li>C. Cu(BO<sub>2</sub>)<sub>2</sub></li>
+          <li>D. CuO</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q47">
+        <span class="num">Question 47</span>
+        <span class="shift">[29-Jan-2023 Shift 2]</span>
+        <p>The set of correct statements is:<br>
+        (i) Manganese exhibits +7 oxidation state in its oxide.<br>
+        (ii) Ruthenium and Osmium exhibit +8 oxidation in their oxides.<br>
+        (iii) Sc shows +4 oxidation state which is oxidizing in nature.<br>
+        (iv) Cr shows oxidising nature in +6 oxidation state.</p>
+        <ul class="opts">
+          <li>A. (ii) and (iii)</li>
+          <li>B. (i), (ii) and (iv)</li>
+          <li>C. (i) and (iii)</li>
+          <li>D. (ii), (iii) and (iv)</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q48">
+        <span class="num">Question 48</span>
+        <span class="shift">[29-Jan-2023 Shift 2]</span>
+        <p>A solution of CrO<sub>5</sub> in amyl alcohol has a ________ colour.</p>
+        <ul class="opts">
+          <li>A. Green</li>
+          <li>B. Orange-Red</li>
+          <li>C. Yellow</li>
+          <li>D. Blue</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q49">
+        <span class="num">Question 49</span>
+        <span class="shift">[30-Jan-2023 Shift 1]</span>
+        <p>During the qualitative analysis of SO<sub>3</sub><sup>2-</sup> using dilute H<sub>2</sub>SO<sub>4</sub>, SO<sub>2</sub> gas is evolved which turns K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> solution (acidified with dilute H<sub>2</sub>SO<sub>4</sub>):</p>
+        <ul class="opts">
+          <li>A. Black</li>
+          <li>B. Red</li>
+          <li>C. Green</li>
+          <li>D. Blue</li>
+        </ul>
+      </div>
+
+      <div class="q" id="q50">
+        <span class="num">Question 50</span>
+        <span class="shift">[31-Jan-2023 Shift 1]</span>
+        <p>When Cu<sup>2+</sup> ion is treated with KI, a white precipitate, X appears in solution. The solution is titrated with sodium thiosulphate, the compound Y is formed. X and Y respectively are:</p>
+        <ul class="opts">
+          <li>A. X = Cu<sub>2</sub>I<sub>2</sub>, Y = Na<sub>2</sub>S<sub>4</sub>O<sub>5</sub></li>
+          <li>B. X = Cu<sub>2</sub>I<sub>2</sub>, Y = Na<sub>2</sub>S<sub>4</sub>O<sub>6</sub></li>
+          <li>C. X = CuI, Y = Na<sub>2</sub>S<sub>4</sub>O<sub>3</sub></li>
+          <li>D. X = CuI<sub>2</sub>, Y = Na<sub>2</sub>S<sub>4</sub>O<sub>6</sub></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="btn-container">
+      <button id="submitBtn" onclick="revealAnswers()">Submit & View Score</button>
+    </div>
+
+    <div id="answersSection">
+      <div id="scoreBoard">
+        <div class="score-total">Score: <span id="finalScoreDisplay">0</span> / 200</div>
+        <div class="score-stats">
+          <span class="stat-pill" style="color: #4caf50;">✔ Correct: <span id="correctCount">0</span></span>
+          <span class="stat-pill" style="color: #f44336;">✖ Incorrect: <span id="wrongCount">0</span></span>
+          <span class="stat-pill" style="color: #9e9e9e;">➖ Unattempted: <span id="unattemptedCount">0</span></span>
+        </div>
+      </div>
+      <h2>Test Solutions & Explanations</h2>
+      <div id="answers-list"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const questionNav = document.getElementById('q-nav');
+    const totalQuestions = 50; 
+
+    // Populate Navigation Dropdown
+    for(let i = 1; i <= totalQuestions; i++) {
+        let opt = document.createElement('option');
+        opt.value = 'q' + i;
+        opt.text = 'Question ' + i;
+        questionNav.appendChild(opt);
+    }
+
+    function scrollToElement(id) {
+        if(!id) return;
+        const element = document.getElementById(id);
+        if(element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // --- NEW LOGIC: Initialize Inputs and Toggle Selections ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const questions = document.querySelectorAll('.q');
+        
+        questions.forEach(q => {
+            const optsList = q.querySelector('.opts');
+            
+            if (optsList) {
+                const listItems = optsList.querySelectorAll('li');
+                listItems.forEach(li => {
+                    li.addEventListener('click', function() {
+                        if (q.classList.contains('locked')) return; 
+                        
+                        // Feature to unselect an option if it is already selected
+                        if (this.classList.contains('selected')) {
+                            this.classList.remove('selected');
+                        } else {
+                            listItems.forEach(item => item.classList.remove('selected'));
+                            this.classList.add('selected');
+                        }
+                    });
+                });
+            } else {
+                // Fill-in-the-blank fallback
+                const textInput = document.createElement('input');
+                textInput.type = 'text';
+                textInput.className = 'text-ans';
+                textInput.placeholder = 'Type your answer here...';
+                q.appendChild(textInput);
+            }
+        });
+    });
+
+    // Highly structured answer key for accurate auto-grading
+    const answerKey = {
+        1: { ans: ["11"], exp: "11 (Nb is [Kr] 4d4 5s1; Ru is [Kr] 4d7 5s1. x=4, y=7)" },
+        2: { ans: ["160"], exp: "160 (Product is Fe2O3. Molar mass ≈ 159.7)" },
+        3: { ans: ["6"], exp: "6 (Compound C is Na2Cr2O7. Structure has 6 terminal O atoms and 1 bridging)" },
+        4: { ans: ["4"], exp: "4 (Highest enthalpy is Co. Co2+ is d7, 3 unpaired e-, BM = 3.87 ≈ 4)" },
+        5: { ans: "D", exp: "D. (A) and (B) only (Eu2+ and Gd3+ both have 4f7 configurations)" },
+        6: { ans: "A", exp: "A. V2+, Cr3+, Mn3+ (Similar absorption spectrums in aqueous states)" },
+        7: { ans: "C", exp: "C. K2CrO4 and K2Cr2O7 (Chromate in base, dichromate in acid)" },
+        8: { ans: "B", exp: "B. (A)-(IV), (B)-(III), (C)-(I), (D)-(II)" },
+        9: { ans: "C", exp: "C. Tb4+ (Highly unstable, strong tendency to reduce to stable +3 state)" },
+        10: { ans: "C", exp: "C. K2MnO4 (First step yields green potassium manganate)" },
+        11: { ans: "A", exp: "A. (A)-(III), (B)-(I), (C)-(IV), (D)-(II) (Ti3+ is 1.73, V2+ is 3.87, Ni2+ is 2.84, Sc3+ is 0.00)" },
+        12: { ans: "D", exp: "D. Mn2+ (Yields an amethyst/violet bead in oxidizing flame)" },
+        13: { ans: "B", exp: "B. +5 (V2O5 reacts to form VO4 3- vanadate ion)" },
+        14: { ans: "D", exp: "D. Mn < Fe, Tc < Ru and Os < Re" },
+        15: { ans: "B", exp: "B. A, B and E Only (4.9 BM means 4 unpaired electrons. Cr2+, Fe2+, Mn3+ fit this)" },
+        16: { ans: "A", exp: "A. Statement I is true but Statement II is false (Heavier d-block elements have more stable higher oxidation states)" },
+        17: { ans: "D", exp: "D. V2+, Co2+ (Both have 3 unpaired electrons)" },
+        18: { ans: "A", exp: "A. basic (V is the highest atomisation enthalpy in this context, V3+ is green, V2O3 is basic)" },
+        19: { ans: "C", exp: "C. Cr2+ > Cr3+ > Cu2+ > Cu+" },
+        20: { ans: "C", exp: "C. Statement I is true but Statement II is false (S-block elements are highly reactive and never found pure in nature)" },
+        21: { ans: "A", exp: "A. CrO2Cl2, Na2CrO4 (Chromyl chloride test)" },
+        22: { ans: "B", exp: "B. Both Statement I and Statement II are true" },
+        23: { ans: "B", exp: "B. Cu, Zn, Cd, Ag (All have completely filled d-orbitals in ground state)" },
+        24: { ans: "D", exp: "D. IO3- (Permanganate oxidizes iodide to iodate in alkaline medium)" },
+        25: { ans: "A", exp: "A. +6 (CrO5 has a butterfly structure with two peroxo linkages and one double bond)" },
+        26: { ans: "A", exp: "A. B, D only" },
+        27: { ans: "C", exp: "C. Eu2+ (Strong tendency to achieve stable 4f7 half-filled +3 state)" },
+        28: { ans: "B", exp: "B. (A)-III, (B)-IV, (C)-I, (D)-II (Cr2+ is 3d4, Mn+ is 3d5 4s1, Ni2+ is 3d8, V+ is 3d3 4s1)" },
+        29: { ans: "B", exp: "B. La3+ and Ce4+ (Both have 4f0 configurations, hence 0 unpaired electrons)" },
+        30: { ans: "A", exp: "A. Charge transfer transition in both" },
+        31: { ans: "B", exp: "B. MnO4 2- and MnO4 -" },
+        32: { ans: "A", exp: "A. A=Na2CrO4, B=CrO5 (Yellow solution A, blue organic layer B)" },
+        33: { ans: "D", exp: "D. B, D, E only (Chromate is tetrahedral, not square planar. Manganate is paramagnetic)" },
+        34: { ans: ["28", "28.3"], exp: "28 (Ni2+ is d8, 2 unpaired electrons, 2.83 BM. 28.3 x 10^-1 ≈ 28)" },
+        35: { ans: "B", exp: "B. A and C only" },
+        36: { ans: ["8", "1.6"], exp: "8 (or 1.6 per mole of oxalate) (1 MnO4- requires 8 H+ to fully reduce)" },
+        37: { ans: ["6", "+6"], exp: "+6 (Formation of CrO2Cl2, chromium remains +6)" },
+        38: { ans: "A", exp: "A. CuSO4.5H2O (Has a d9 configuration; the others are d0 charge transfer complexes)" },
+        39: { ans: "B", exp: "B. Mn (Removing 3rd electron breaks highly stable half-filled 3d5 configuration)" },
+        40: { ans: "A", exp: "A. Both (A) and (R) are true and (R) is the correct explanation of (A) (The extra stability of half-filled configurations strictly dictates the redox behavior)" },
+        41: { ans: "C", exp: "C. V2+ (d3 configuration yields 3 unpaired electrons)" },
+        42: { ans: "D", exp: "D. Ni2+ (Forms a rosy red precipitate with Dimethylglyoxime)" },
+        43: { ans: "D", exp: "D. C and D only (Ce4+ and Tb4+ readily reduce to +3)" },
+        44: { ans: "D", exp: "D. Sulphur dioxide (SO2 reduces dichromate to green Cr3+)" },
+        45: { ans: "B", exp: "B. +6 to +3" },
+        46: { ans: "C", exp: "C. Cu(BO2)2" },
+        47: { ans: "B", exp: "B. (i), (ii) and (iv)" },
+        48: { ans: "D", exp: "D. Blue" },
+        49: { ans: "C", exp: "C. Green (Due to formation of Cr3+)" },
+        50: { ans: "B", exp: "B. X = Cu2I2, Y = Na2S4O6" }
+    };
+
+    function revealAnswers() {
+        const section = document.getElementById('answersSection');
+        section.style.display = 'block';
+        document.getElementById('submitBtn').style.display = 'none';
+
+        const ansNav = document.getElementById('ans-nav');
+        ansNav.style.display = 'inline-block';
+
+        const list = document.getElementById('answers-list');
+        list.innerHTML = ''; 
+
+        let totalScore = 0;
+        let cCount = 0;
+        let wCount = 0;
+        let uCount = 0;
+
+        // Auto-Grade Loop
+        for(let i = 1; i <= totalQuestions; i++) {
+            const qDiv = document.getElementById('q' + i);
+            const key = answerKey[i];
+            const optsList = qDiv.querySelector('.opts');
+            const textInput = qDiv.querySelector('.text-ans');
+            
+            qDiv.classList.add('locked'); // Lock the entire question UI
+
+            let isCorrect = false;
+            let attempted = false;
+
+            if (optsList) {
+                const selectedLi = optsList.querySelector('.selected');
+                const allLis = optsList.querySelectorAll('li');
+                
+                if (selectedLi) {
+                    attempted = true;
+                    if (selectedLi.innerText.trim().startsWith(key.ans)) {
+                        isCorrect = true;
+                        selectedLi.classList.add('correct');
+                    } else {
+                        selectedLi.classList.add('wrong');
+                        // Reveal the correct option
+                        allLis.forEach(li => {
+                            if (li.innerText.trim().startsWith(key.ans)) li.classList.add('correct');
+                        });
+                    }
+                } else {
+                    // Unattempted, but reveal the correct option anyway
+                    allLis.forEach(li => {
+                        if (li.innerText.trim().startsWith(key.ans)) li.classList.add('correct');
+                    });
+                }
+            } else if (textInput) {
+                textInput.disabled = true; // disable input
+                const val = textInput.value.trim();
+                if (val !== "") {
+                    attempted = true;
+                    // Robust numerical and string checker
+                    isCorrect = key.ans.some(a => {
+                        if (a.toLowerCase() === val.toLowerCase()) return true;
+                        if (!isNaN(a) && !isNaN(val) && parseFloat(a) === parseFloat(val)) return true;
+                        return false;
+                    });
+                    
+                    if (isCorrect) {
+                        textInput.classList.add('correct');
+                    } else {
+                        textInput.classList.add('wrong');
+                    }
+                }
+            }
+
+            // Calculate marks
+            let badgeHtml = '';
+            if (!attempted) {
+                uCount++;
+                badgeHtml = `<span class="marks-badge badge-unattempted">Unattempted (0)</span>`;
+            } else if (isCorrect) {
+                cCount++;
+                totalScore += 4;
+                badgeHtml = `<span class="marks-badge badge-correct">Correct (+4)</span>`;
+            } else {
+                wCount++;
+                totalScore -= 1;
+                badgeHtml = `<span class="marks-badge badge-wrong">Incorrect (-1)</span>`;
+            }
+
+            // Generate answer block in the key section
+            let div = document.createElement('div');
+            div.className = 'answer-item';
+            div.id = 'ans' + i; 
+            div.innerHTML = `<strong>Question ${i}:</strong> ${badgeHtml}<br><span class="ans-text">${key.exp}</span>`;
+            list.appendChild(div);
+
+            let opt = document.createElement('option');
+            opt.value = 'ans' + i;
+            opt.text = 'Answer ' + i;
+            ansNav.appendChild(opt);
+        }
+
+        // Update Scoreboard UI
+        document.getElementById('finalScoreDisplay').innerText = totalScore;
+        document.getElementById('correctCount').innerText = cCount;
+        document.getElementById('wrongCount').innerText = wCount;
+        document.getElementById('unattemptedCount').innerText = uCount;
+
+        scrollToElement('answersSection');
+    }
+  </script>
+</body>
+</html>
